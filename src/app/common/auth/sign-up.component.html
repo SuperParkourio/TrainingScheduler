@@ -1,0 +1,23 @@
+<h2>Sign Up</h2>
+<form>
+    <div class="row">
+        <div class="col-md-6">
+        <label>First Name *</label>
+        <input type="text" class="form-control" [(ngModel)]="firstName" name="firstName"/>
+        <label>Last Name *</label>
+        <input type="text" class="form-control" [(ngModel)]="lastName" name="lastName"/>
+        <label>Phone Number</label>
+        <input type="text" class="form-control" [(ngModel)]="phoneNumber" name="phoneNumber"/>
+        <label>Email *</label>
+        <input type="text" class="form-control" [(ngModel)]="email" name="email"/>
+        <label>Password *</label>
+        <input type="password" class="form-control" [(ngModel)]="password" name="password" />
+        <label name="labelError"></label>
+        </div>
+        <div class="col-md-6">
+        </div>
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="signUp()">Submit</button>
+</form>
+      
