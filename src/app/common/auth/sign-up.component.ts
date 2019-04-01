@@ -25,6 +25,7 @@ export class SignUpComponent {
         
         if (newUser.firstName && newUser.lastName && newUser.email && newUser.password) {
             console.log(newUser);
+            document.getElementsByName("labelError")[0].innerText = '';
         } else {
             console.log('Broken form, not valid YO');
             document.getElementsByName("labelError")[0].innerText = 'First Name, Last Name, Email, and Password are required.';
