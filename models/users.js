@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
           isNumeric: { msg: 'Not a valid phone number.' },
         },
       },
+      userRoleId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       aboutMe: DataTypes.STRING,
       password: DataTypes.STRING,
     },
@@ -29,6 +33,10 @@ module.exports = (sequelize, DataTypes) => {
       classMethods: {
         associate: function(models) {
           // associations can be defined here
+          models.Users.belongsTo(models.UserRoles, {
+            foreignKey: 'userRoleId',
+            sourceKey: 'id',
+          });
         },
       },
     },
