@@ -10,7 +10,7 @@ const create = async function (req, res) {
   } else if (!body.password) {
     return ReE(res, 'Please enter a password to register', 422);
   } else {
-    let err, user
+    let err, user;
 
     [err, user] = await to(createUser(body));
     if (err) return ReE(res, err, 422);
