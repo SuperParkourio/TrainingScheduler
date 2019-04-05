@@ -1,8 +1,4 @@
 'use strict';
-const bcrypt = require('bcrypt');
-const bcrypt_p = require('bcrypt-promise');
-const jwt = require('jsonwebtoken');
-
 module.exports = (sequelize, DataTypes) => {
   var Events = sequelize.define(
     'Events',
@@ -15,6 +11,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      startTime: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
+      endTime: {
+        type: Sequelize.DATE,
+        allowNull: false,
+      },
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -24,19 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       classMethods: {
         associate: function(models) {
           // associations can be defined here
+          models.Events.belongsTo(models.Users, {
+            foreignKey: 'userId',
+            sourceKey: 'id',
+          });
         },
       },
     },
   );
-
-  Events.prototype.getJWT = function() {
-    let expiration_time = parseInt(CONFIG.jwt_expiration);
-    return (
-      'Bearer ' +
-      jwt.sign({ user_id: this.id }, CONFIG.jwt_encryption, {
-        expiresIn: expiration_time,
-      })
-    );
-  };
-  return Users;
+  return Events;
 };
