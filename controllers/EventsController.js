@@ -25,9 +25,26 @@ const createEvent = async function (eventInfo) {
 }
 module.exports.createEvent = createEvent;
 
+const readEvent = async function (req, res) {
+  let err, event;
+  if (!req.query) return ReE(res, 'No query parameters found', 404);
+  [err, event] = await to(Events.findOne({ where: { id: req.query.id } }));
+  if (err) return ReE(res, 'No id parameter?', 422);
+  if (!event) {
+    return ReE(res, 'No event found', 404);
+  }
+  return res.json(event);
+}
+module.exports.readEvent = readEvent;
+
 const update = async function (req, res) {
   let err, event, data;
-  event = req.event;
+  if (!req.query) return ReE(res, 'No query parameters found', 404);
+  [err, event] = await to(Events.findOne({ where: { id: req.query.id } }));
+  if (err) return ReE(res, 'No id parameter?', 422);
+  if (!event) {
+    return ReE(res, 'No event found', 404);
+  }
   data = req.body;
   event.set(data);
   [err, event] = await to(event.save());
@@ -37,10 +54,22 @@ const update = async function (req, res) {
     }
 
     if (typeof code !== 'undefined') res.statusCode = code;
-    res.statusCode = 422;
+    res.statusCode = 422
     return res.json({ success: false, error: err });
   }
 
   return res.json(event);
 }
 module.exports.update = update;
+
+const deleteEvent = async function (req, res) {
+  let err, numDeleted;
+  if (!req.query) return ReE(res, 'No query parameters found', 404);
+  [err, numDeleted] = await to(Events.destroy({ where: { id: req.query.id } }));
+  if (err) return ReE(res, 'No id parameter?', 422);
+  if (!numDeleted) {
+    return ReE(res, 'No events deleted?', 404);
+  }
+  return res.json({ success: true, numberDeleted: numDeleted });
+}
+module.exports.deleteEvent = deleteEvent;

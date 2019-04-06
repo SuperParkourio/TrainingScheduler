@@ -73,8 +73,12 @@ if (CONFIG.app === 'dev') {
 app.post('/users', userController.create);
 app.put(
   '/users',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   userController.update,
 );
 app.post('/login', userController.login);
+app.post('/events', eventController.create);
+app.put('/events', eventController.update);
+app.get('/events', eventController.readEvent);
+app.delete('/events', eventController.deleteEvent);
 module.exports = app;

@@ -74,7 +74,12 @@ module.exports.authUser = authUser;
 
 const update = async function (req, res) {
   let err, user, data;
-  user = req.user;
+  if (!req.query) return ReE(res, 'No query parameters found', 404);
+  [err, user] = await to(Users.findOne({ where: { id: req.query.id } }));
+  if (err) return ReE(res, 'No id parameter?', 422);
+  if (!user) {
+    return ReE(res, 'No user found', 404);
+  }
   data = req.body;
   user.set(data);
   [err, user] = await to(user.save());
