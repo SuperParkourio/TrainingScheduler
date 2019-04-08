@@ -27,9 +27,12 @@ module.exports.createEvent = createEvent;
 
 const readEvent = async function (req, res) {
   let err, event;
-  if (!req.query) return ReE(res, 'No query parameters found', 404);
-  [err, event] = await to(Events.findOne({ where: { id: req.query.id } }));
-  if (err) return ReE(res, 'No id parameter?', 422);
+  if (req.query && req.query.length > 0) {
+    [err, event] = await to(Events.findOne({ where: { id: req.query.id } }));
+  } else {
+    [err, event] = await to(Events.findAll());
+  }
+  if (err) return ReE(res, 'Failed to read', 422);
   if (!event) {
     return ReE(res, 'No event found', 404);
   }

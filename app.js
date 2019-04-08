@@ -73,7 +73,7 @@ if (CONFIG.app === 'dev') {
 app.post('/users', userController.create);
 app.put(
   '/users',
-  // passport.authenticate('jwt', { session: false }),
+  passport.authenticate('jwt', { session: false }),
   userController.update,
 );
 app.post('/login', userController.login);

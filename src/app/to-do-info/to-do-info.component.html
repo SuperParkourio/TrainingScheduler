@@ -1,0 +1,7 @@
+<form [formGroup]="toDoForm">
+  <div><label>First Name:</label><input type="text" [formControl]="name"/></div>
+  <div><label>Last Name:</label><input type="text" [formControl]="lastName"/></div>
+  <div>
+    <button (click)="save()">Save</button>
+  </div>
+</form>

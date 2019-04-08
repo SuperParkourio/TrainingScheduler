@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
     templateUrl: './sign-up.component.html',
@@ -12,6 +14,8 @@ export class SignUpComponent {
     password = '';
 
     constructor(
+        private authService: AuthService,
+        private router: Router,
     ) { }
 
     signUp(): void {
@@ -24,10 +28,12 @@ export class SignUpComponent {
         };
         
         if (newUser.firstName && newUser.lastName && newUser.email && newUser.password) {
-            console.log(newUser);
+            this.authService.signUp(newUser.firstName, newUser.lastName, newUser.phoneNumber, newUser.email, newUser.password).subscribe(
+                (response) => this.router.navigateByUrl('/login')
+            );
             document.getElementsByName("labelError")[0].innerText = '';
         } else {
-            console.log('Broken form, not valid YO');
+            console.log('Broken form; not valid');
             document.getElementsByName("labelError")[0].innerText = 'First Name, Last Name, Email, and Password are required.';
         }
     }
