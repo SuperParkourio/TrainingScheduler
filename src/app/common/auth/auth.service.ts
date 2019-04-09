@@ -44,7 +44,7 @@ export class AuthService {
             email: email,
             password: password,
             userRoleId: 2,
-            aboutMe: "",
+            aboutMe: null,
         };
         if (!data.phone) data.phone = null;
         return this.http.post('http://localhost:3000/users', data);
