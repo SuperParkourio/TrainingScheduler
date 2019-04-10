@@ -81,4 +81,9 @@ app.post('/events', eventController.create);
 app.put('/events', eventController.update);
 app.get('/events', eventController.readEvent);
 app.delete('/events', eventController.deleteEvent);
+app.get(
+  '/getUser',
+  passport.authenticate('jwt', { session: false }),
+  userController.getCurrentUser,
+);
 module.exports = app;

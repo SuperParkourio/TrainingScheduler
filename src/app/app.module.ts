@@ -15,6 +15,7 @@ import { LoginComponent } from './common/auth/login.component';
 import { TokenInterceptor } from './common/auth/token.interceptor';
 import { SignUpComponent } from './common/auth/sign-up.component';
 import { ToDoInfoComponent } from './to-do-info/to-do-info.component';
+import { UserProfileComponent } from './common/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ToDoInfoComponent } from './to-do-info/to-do-info.component';
     LoginComponent,
     SignUpComponent,
     ToDoInfoComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,

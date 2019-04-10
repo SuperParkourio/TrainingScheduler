@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import 'rxjs/add/operator/do';
 
@@ -48,5 +48,13 @@ export class AuthService {
         };
         if (!data.phone) data.phone = null;
         return this.http.post('http://localhost:3000/users', data);
+    }
+
+    updateUserInfo(userId: Number, userInfo: any): Observable<any> {
+        return this.http.put('http://localhost:3000/users?id=' + userId, userInfo);
+    }
+
+    getCurrentUser(): Observable<any> {
+        return this.http.get('http://localhost:3000/getUser');
     }
 }

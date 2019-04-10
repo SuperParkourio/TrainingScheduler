@@ -96,3 +96,8 @@ const update = async function (req, res) {
   return res.json(user);
 }
 module.exports.update = update;
+
+const getCurrentUser = async function (req, res) {
+  return res.json(req.user);
+}
+module.exports.getCurrentUser = getCurrentUser;
