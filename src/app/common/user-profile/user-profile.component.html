@@ -1,11 +1,11 @@
 <h2>User Profile</h2>
 <form [formGroup]="updateUserForm">
-  <div><label>First Name:</label><input type="text" formControlName="first"/></div>
-  <div><label>Last Name:</label><input type="text" formControlName="last"/></div>
-  <div><label>Email:</label><input type="text" formControlName="email"/></div>
+  <div><label>First Name*:</label><input type="text" formControlName="first"/></div>
+  <div><label>Last Name*:</label><input type="text" formControlName="last"/></div>
+  <div><label>Email*:</label><input type="text" formControlName="email"/></div>
   <div><label>Phone Number:</label><input type="text" formControlName="phone"/></div>
   <div><label>About Me:</label><input type="text" formControlName="aboutMe"/></div>
-  <div><label>Password:</label><input type="text" formControlName="password"/></div>
+  <div><label>Password*:</label><input type="text" formControlName="password"/></div>
   <div>
     <button (click)="save()">Save</button>
   </div>
