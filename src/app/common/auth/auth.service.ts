@@ -8,6 +8,17 @@ export interface ILoginResponse {
     token?: string;
 }
 
+export interface IUser {
+    id: Number,
+    first: string,
+    last: string,
+    email: string,
+    phone: string,
+    userRoleId: Number,
+    aboutMe: string,
+    password: string,
+}
+
 @Injectable()
 export class AuthService {
 
@@ -54,7 +65,7 @@ export class AuthService {
         return this.http.put('http://localhost:3000/users?id=' + userId, userInfo);
     }
 
-    getCurrentUser(): Observable<any> {
-        return this.http.get('http://localhost:3000/getUser');
+    getCurrentUser(): Observable<IUser> {
+        return this.http.get<IUser>('http://localhost:3000/getUser');
     }
 }

@@ -86,4 +86,9 @@ app.get(
   passport.authenticate('jwt', { session: false }),
   userController.getCurrentUser,
 );
+app.get(
+  '/getEvents',
+  passport.authenticate('jwt', { session: false }),
+  eventController.readEventsForUser,
+);
 module.exports = app;

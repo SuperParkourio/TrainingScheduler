@@ -40,6 +40,17 @@ const readEvent = async function (req, res) {
 }
 module.exports.readEvent = readEvent;
 
+const readEventsForUser = async function (req, res) {
+  let err, events;
+  [err, events] = await to(Events.findAll({ where: { userId: req.user.id } }));
+  if (err) return ReE(res, 'Failed to read', 422);
+  if (!events) {
+    return ReE(res, 'No events found', 404);
+  }
+  return res.json(events);
+}
+module.exports.readEventsForUser = readEventsForUser;
+
 const update = async function (req, res) {
   let err, event, data;
   if (!req.query) return ReE(res, 'No query parameters found', 404);

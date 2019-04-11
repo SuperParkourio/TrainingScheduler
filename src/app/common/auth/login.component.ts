@@ -7,8 +7,8 @@ import { AuthService } from './auth.service';
 })
 export class LoginComponent implements OnInit {
 
-    email = '';
-    password = '';
+    email = 's@gmail.com'; // for testing
+    password = 'p';
 
     constructor(
         private router: Router,
