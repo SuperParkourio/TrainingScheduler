@@ -3,13 +3,14 @@ const Events = require('../models').Events;
 const create = async function (req, res) {
   res.setHeader('ContentType', 'application/json');
   const body = req.body;
+  const user = req.user;
 
   if (!body.name) {
     return ReE(res, 'Please enter a name for the event', 422);
   } else {
     let err, event;
 
-    [err, event] = await to(createEvent(body));
+    [err, event] = await to(createEvent(body, user));
     if (err) return ReE(res, err, 422);
 
     return ReS(res, event, 201);
@@ -17,8 +18,11 @@ const create = async function (req, res) {
 }
 module.exports.create = create;
 
-const createEvent = async function (eventInfo) {
+const createEvent = async function (eventInfo, user) {
   let err;
+  if (user && user.id) {
+    eventInfo.userId = user.id;
+  }
   [err, event] = await to(Events.create(eventInfo));
   if (err) TE('Event could not be created');
   return event;
@@ -42,7 +46,13 @@ module.exports.readEvent = readEvent;
 
 const readEventsForUser = async function (req, res) {
   let err, events;
-  [err, events] = await to(Events.findAll({ where: { userId: req.user.id } }));
+  const whereStatement = { userId: req.user.id };
+  if (req.query.name) {
+    whereStatement.name = {
+      $like: '%' + req.query.name + '%'
+    };
+  }
+  [err, events] = await to(Events.findAll({ where: whereStatement, order: [['startTime', 'ASC']] }));
   if (err) return ReE(res, 'Failed to read', 422);
   if (!events) {
     return ReE(res, 'No events found', 404);

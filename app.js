@@ -77,7 +77,11 @@ app.put(
   userController.update,
 );
 app.post('/login', userController.login);
-app.post('/events', eventController.create);
+app.post(
+  '/events',
+  passport.authenticate('jwt', { session: false }),
+  eventController.create,
+);
 app.put('/events', eventController.update);
 app.get('/events', eventController.readEvent);
 app.delete('/events', eventController.deleteEvent);

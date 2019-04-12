@@ -17,6 +17,8 @@ import { SignUpComponent } from './common/auth/sign-up.component';
 import { ToDoInfoComponent } from './to-do-info/to-do-info.component';
 import { UserProfileComponent } from './common/user-profile/user-profile.component';
 import { EventListComponent } from './common/event-list/event-list.component';
+import { AddEventComponent } from './common/add-event/add-event.component';
+import { EventInfoComponent } from './common/event-info/event-info.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { EventListComponent } from './common/event-list/event-list.component';
     ToDoInfoComponent,
     UserProfileComponent,
     EventListComponent,
+    AddEventComponent,
+    EventInfoComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { EventService } from '../event.service';
+import { EventService, IEvent } from '../event.service';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-event-list',
@@ -13,15 +13,30 @@ export class EventListComponent implements OnInit {
     query: new FormControl('')
   });
 
-  events = ['a','b','c'];
+  events: IEvent[];
   query = '';
 
   constructor(
-    private eventService: EventService,
-    private activeRoute: ActivatedRoute
+    private eventService: EventService
   ) { }
 
   ngOnInit() {
+    this.getEvents();
+    this.searchForm.controls.query.valueChanges.pipe(debounceTime(350)).subscribe(
+      (value) => {
+        console.log(value);
+        this.query = value;
+        this.getEvents();
+      }
+    )
   }
 
+  getEvents() {
+    this.eventService.getEventsForCurrentUser(this.query).subscribe(
+      (events) => {
+        console.log(events);
+        this.events = events;
+      }
+    );
+  }
 }

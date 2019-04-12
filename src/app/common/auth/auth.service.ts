@@ -9,12 +9,12 @@ export interface ILoginResponse {
 }
 
 export interface IUser {
-    id: Number,
+    id: number,
     first: string,
     last: string,
     email: string,
     phone: string,
-    userRoleId: Number,
+    userRoleId: number,
     aboutMe: string,
     password: string,
 }
@@ -61,7 +61,7 @@ export class AuthService {
         return this.http.post('http://localhost:3000/users', data);
     }
 
-    updateUserInfo(userId: Number, userInfo: any): Observable<any> {
+    updateUserInfo(userId: number, userInfo: any): Observable<any> {
         return this.http.put('http://localhost:3000/users?id=' + userId, userInfo);
     }
 

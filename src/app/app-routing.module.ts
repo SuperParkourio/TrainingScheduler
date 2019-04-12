@@ -6,6 +6,8 @@ import { SignUpComponent } from './common/auth/sign-up.component';
 import { ToDoInfoComponent } from './to-do-info/to-do-info.component';
 import { UserProfileComponent } from './common/user-profile/user-profile.component';
 import { EventListComponent } from './common/event-list/event-list.component';
+import { AddEventComponent } from './common/add-event/add-event.component';
+import { EventInfoComponent } from './common/event-info/event-info.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -14,6 +16,8 @@ const appRoutes: Routes = [
   { path: 'to-do', component: ToDoInfoComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'event-list', component: EventListComponent },
+  { path: 'add-event', component: AddEventComponent },
+  { path: 'event-info/:eventId', component: EventInfoComponent },
   { path: '**', component: HomeComponent },
 ];
 

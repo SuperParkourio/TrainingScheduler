@@ -19,7 +19,7 @@ export class UserProfileComponent implements OnInit {
     password: new FormControl(),
     labelError: new FormControl(),
   });
-  userId: Number;
+  userId: number;
   
   constructor(
     private authService: AuthService,
