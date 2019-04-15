@@ -8,16 +8,17 @@ import { UserProfileComponent } from './common/user-profile/user-profile.compone
 import { EventListComponent } from './common/event-list/event-list.component';
 import { AddEventComponent } from './common/add-event/add-event.component';
 import { EventInfoComponent } from './common/event-info/event-info.component';
+import { AuthGuard } from './common/auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent },
   { path: 'to-do', component: ToDoInfoComponent },
-  { path: 'user-profile', component: UserProfileComponent },
-  { path: 'event-list', component: EventListComponent },
-  { path: 'add-event', component: AddEventComponent },
-  { path: 'event-info/:eventId', component: EventInfoComponent },
+  { path: 'user-profile', canActivate: [AuthGuard], component: UserProfileComponent },
+  { path: 'event-list', canActivate: [AuthGuard], component: EventListComponent },
+  { path: 'add-event', canActivate: [AuthGuard], component: AddEventComponent },
+  { path: 'event-info/:eventId', canActivate: [AuthGuard], component: EventInfoComponent },
   { path: '**', component: HomeComponent },
 ];
 

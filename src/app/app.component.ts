@@ -9,6 +9,7 @@ import { AuthService } from './common/auth/auth.service';
 export class AppComponent implements OnInit {
 
   loggedIn = false;
+  isAdmin = false;
 
   constructor(
     private authService: AuthService,
@@ -17,6 +18,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.authService.token
       .subscribe((token) => this.loggedIn = token ? true : false);
+    this.authService.isAdmin
+      .subscribe((value) => this.isAdmin = value);
   }
 
   logout(): void {

@@ -15,7 +15,7 @@
         <li *ngIf="loggedIn" class="nav-item">
           <a class="nav-link" routerLink="/event-list">Event List</a>
         </li>
-        <li *ngIf="loggedIn" class="nav-item">
+        <li *ngIf="loggedIn && !isAdmin" class="nav-item">
           <a class="nav-link" routerLink="/add-event">Add Event</a>
         </li>
       </ul>
