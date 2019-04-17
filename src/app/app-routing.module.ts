@@ -9,6 +9,10 @@ import { EventListComponent } from './common/event-list/event-list.component';
 import { AddEventComponent } from './common/add-event/add-event.component';
 import { EventInfoComponent } from './common/event-info/event-info.component';
 import { AuthGuard } from './common/auth/auth.guard';
+import { NoAdminGuard } from './common/auth/no-admin.guard';
+import { AddSessionComponent } from './common/add-session/add-session.component';
+import { SessionListComponent } from './common/session-list/session-list.component';
+import { TrainerGuard } from './common/auth/trainer.guard';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -17,8 +21,11 @@ const appRoutes: Routes = [
   { path: 'to-do', component: ToDoInfoComponent },
   { path: 'user-profile', canActivate: [AuthGuard], component: UserProfileComponent },
   { path: 'event-list', canActivate: [AuthGuard], component: EventListComponent },
-  { path: 'add-event', canActivate: [AuthGuard], component: AddEventComponent },
+  { path: 'add-event', canActivate: [AuthGuard, NoAdminGuard], component: AddEventComponent },
   { path: 'event-info/:eventId', canActivate: [AuthGuard], component: EventInfoComponent },
+  { path: 'sessions', component: SessionListComponent},
+  { path: 'sessions/add', canActivate: [AuthGuard, TrainerGuard], component: AddSessionComponent },
+  { path: 'sessions/:sessionId', canActivate: [AuthGuard], component: AddSessionComponent },
   { path: '**', component: HomeComponent },
 ];
 

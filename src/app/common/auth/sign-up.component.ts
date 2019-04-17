@@ -12,6 +12,7 @@ export class SignUpComponent {
     phoneNumber = '';
     email = '';
     password = '';
+    isTrainer = false;
 
     constructor(
         private authService: AuthService,
@@ -25,10 +26,12 @@ export class SignUpComponent {
             phoneNumber: this.phoneNumber,
             email: this.email,
             password: this.password,
-        };
+            isTrainer: this.isTrainer,
+        }; console.log(this.isTrainer);
         
         if (newUser.firstName && newUser.lastName && newUser.email && newUser.password) {
-            this.authService.signUp(newUser.firstName, newUser.lastName, newUser.phoneNumber, newUser.email, newUser.password).subscribe(
+            this.authService.signUp(newUser.firstName, newUser.lastName, newUser.phoneNumber,
+                newUser.email, newUser.password, newUser.isTrainer).subscribe(
                 (response) => this.router.navigateByUrl('/login')
             );
             document.getElementsByName("labelError")[0].innerText = '';

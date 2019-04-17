@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import 'rxjs/add/operator/do';
 import { tap } from 'rxjs/operators';
 
 export interface ILoginResponse {
@@ -24,6 +23,7 @@ export interface IUser {
     userRoleId: number,
     aboutMe: string,
     password: string,
+    isTrainer: boolean,
 }
 
 @Injectable()
@@ -31,6 +31,7 @@ export class AuthService {
 
     token: BehaviorSubject<string> = new BehaviorSubject<string>(null);
     isAdmin: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    isTrainer: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
     constructor(
         private http: HttpClient,
@@ -54,6 +55,9 @@ export class AuthService {
                 tap((response) => {
                     this.token.next(response && response.success && response.token || null);
                     this.isAdmin.next(response && response.success && response.user.userRoleId === UserRoles.Admin || false);
+                    this.isTrainer.next(response && response.success && response.user.isTrainer || false);
+                    // console.log('isAdmin is ' + this.isAdmin.getValue());
+                    // console.log('isTrainer is ' + this.isTrainer.getValue());
                 }
             )
         );
@@ -62,9 +66,11 @@ export class AuthService {
     logout(): void {
         this.token.next(null);
         this.isAdmin.next(false);
+        this.isTrainer.next(false);
     }
 
-    signUp(firstName: string, lastName: string, phoneNumber: string, email: string, password: string): Observable<any> {
+    signUp(firstName: string, lastName: string, phoneNumber: string, email: string,
+        password: string, isTrainer: boolean): Observable<any> {
         const data = {
             first: firstName,
             last: lastName,
@@ -73,7 +79,10 @@ export class AuthService {
             password: password,
             userRoleId: 2,
             aboutMe: null,
+            isTrainer: isTrainer,
         };
+        data.userRoleId = 2;
+        data.aboutMe = null;
         if (!data.phone) data.phone = null;
         return this.http.post('http://localhost:3000/users', data);
     }

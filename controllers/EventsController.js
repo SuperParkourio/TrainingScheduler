@@ -46,7 +46,10 @@ module.exports.readEvent = readEvent;
 
 const readEventsForUser = async function (req, res) {
   let err, events;
-  const whereStatement = { userId: req.user.id };
+  const whereStatement = {};
+  if (req.user.userRoleId !== 1) {
+    whereStatement.userId = req.user.id;
+  }
   if (req.query.name) {
     whereStatement.name = {
       $like: '%' + req.query.name + '%'

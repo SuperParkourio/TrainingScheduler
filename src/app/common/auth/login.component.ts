@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 })
 export class LoginComponent implements OnInit {
 
-    email = 's@gmail.com'; // for testing
+    email = 's@g.com'; // for testing
     password = 'p';
 
     constructor(

@@ -12,6 +12,17 @@ export interface IEvent {
   location: string,
 }
 
+export interface ISession {
+  id: number,
+  name: string,
+  location: string,
+  startTime: string,
+  endTime: string,
+  description: string,
+  trainerId: number,
+  event: IEvent
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -25,7 +36,7 @@ export class EventService {
     return this.http.get<IEvent[]>('http://localhost:3000/getEvents' + (query ? '?name=' + query : ''));
   }
 
-  createEventForCurrentUser(eventInfo:any): Observable<any> {
+  createEventForCurrentUser(eventInfo: any): Observable<any> {
     return this.http.post('http://localhost:3000/events', eventInfo);
   }
 
@@ -33,7 +44,27 @@ export class EventService {
     return this.http.get<IEvent>('http://localhost:3000/events?id=' + eventId);
   }
 
+  getEvents(): Observable<IEvent[]> {
+    return this.http.get<IEvent[]>('http://localhost:3000/events');
+  }
+
   updateEventInfo(eventId: number, event: IEvent): Observable<any> {
     return this.http.put('http://localhost:3000/events?id=' + eventId, event);
+  }
+
+  createSessionForCurrentUser(session: ISession): Observable<ISession> {
+    return this.http.post<ISession>('http://localhost:3000/sessions', session);
+  }
+
+  getSessions(query = ''): Observable<ISession[]> {
+    return this.http.get<ISession[]>('http://localhost:3000/sessions' + (query ? '?name=' + query : ''));
+  }
+
+  getSessionWithId(id: number): Observable<ISession> {
+    return this.http.get<ISession>('http://localhost:3000/sessions?id=' + id);
+  }
+
+  updateSessionInfo(sessionId: number, session: ISession): Observable<ISession> {
+    return this.http.put<ISession>('http://localhost:3000/sessions?id=' + sessionId, session);
   }
 }

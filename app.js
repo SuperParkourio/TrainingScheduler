@@ -5,6 +5,7 @@ const models = require('./models');
 require('./global_functions');
 const userController = require('./controllers/UsersController');
 const eventController = require('./controllers/EventsController');
+const sessionController = require('./controllers/SessionsController');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
@@ -94,5 +95,18 @@ app.get(
   '/getEvents',
   passport.authenticate('jwt', { session: false }),
   eventController.readEventsForUser,
+);
+app.post(
+  '/sessions',
+  passport.authenticate('jwt', { session: false }),
+  sessionController.create,
+);
+app.put('/sessions', sessionController.update);
+app.get('/sessions', sessionController.readSession);
+app.delete('/sessions', sessionController.deleteSession);
+app.get(
+  '/getSessions',
+  passport.authenticate('jwt', { session: false }),
+  sessionController.readSessionsForUser,
 );
 module.exports = app;

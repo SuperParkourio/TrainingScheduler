@@ -19,6 +19,10 @@ import { UserProfileComponent } from './common/user-profile/user-profile.compone
 import { EventListComponent } from './common/event-list/event-list.component';
 import { AddEventComponent } from './common/add-event/add-event.component';
 import { EventInfoComponent } from './common/event-info/event-info.component';
+import { NoAdminGuard } from './common/auth/no-admin.guard';
+import { AddSessionComponent } from './common/add-session/add-session.component';
+import { SessionListComponent } from './common/session-list/session-list.component';
+import { TrainerGuard } from './common/auth/trainer.guard';
 
 @NgModule({
   declarations: [
@@ -31,6 +35,8 @@ import { EventInfoComponent } from './common/event-info/event-info.component';
     EventListComponent,
     AddEventComponent,
     EventInfoComponent,
+    AddSessionComponent,
+    SessionListComponent,
   ],
   imports: [
     BrowserModule,
@@ -44,6 +50,8 @@ import { EventInfoComponent } from './common/event-info/event-info.component';
   providers: [
     AuthService,
     AuthGuard,
+    NoAdminGuard,
+    TrainerGuard,
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

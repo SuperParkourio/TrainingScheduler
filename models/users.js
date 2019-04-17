@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       aboutMe: DataTypes.STRING,
       password: DataTypes.STRING,
+      isTrainer: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
     },
     {
       classMethods: {

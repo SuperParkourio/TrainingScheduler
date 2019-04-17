@@ -1,4 +1,4 @@
-<h2>Event List</h2>
+<h2>Session List</h2>
 <div class="row" [formGroup]="searchForm">
   <div class="col-md-8">
     <label>Search:</label>
@@ -6,7 +6,7 @@
   </div>
 </div>
 <div class="list-group">
-  <a *ngFor="let event of events" class="list-group-item list-group-item-action" routerLink="/event-info/{{ event.id }}">
-    {{ event.name }}
+  <a *ngFor="let session of sessions" class="list-group-item list-group-item-action" routerLink="/sessions/{{ session.id }}">
+    {{ session.name }}
   </a>
 </div>
