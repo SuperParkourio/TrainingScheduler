@@ -56,8 +56,6 @@ export class AuthService {
                     this.token.next(response && response.success && response.token || null);
                     this.isAdmin.next(response && response.success && response.user.userRoleId === UserRoles.Admin || false);
                     this.isTrainer.next(response && response.success && response.user.isTrainer || false);
-                    // console.log('isAdmin is ' + this.isAdmin.getValue());
-                    // console.log('isTrainer is ' + this.isTrainer.getValue());
                 }
             )
         );
@@ -77,11 +75,11 @@ export class AuthService {
             phone: phoneNumber,
             email: email,
             password: password,
-            userRoleId: 2,
+            userRoleId: UserRoles.User,
             aboutMe: null,
             isTrainer: isTrainer,
         };
-        data.userRoleId = 2;
+        data.userRoleId = UserRoles.User;
         data.aboutMe = null;
         if (!data.phone) data.phone = null;
         return this.http.post('http://localhost:3000/users', data);
@@ -93,5 +91,9 @@ export class AuthService {
 
     getCurrentUser(): Observable<IUser> {
         return this.http.get<IUser>('http://localhost:3000/getUser');
+    }
+
+    getTrainers(): Observable<IUser[]> {
+        return this.http.get<IUser[]>('http://localhost:3000/users?isTrainer=1');
     }
 }

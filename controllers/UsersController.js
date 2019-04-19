@@ -72,6 +72,23 @@ const authUser = async function (userInfo) {//returns token
 }
 module.exports.authUser = authUser;
 
+const readUser = async function (req, res) {
+  let err, user;
+  if (req.query && req.query.id) {
+    [err, user] = await to(Users.findOne({ where: { id: req.query.id } }));
+  } else if (req.query && req.query.isTrainer) {
+    [err, user] = await to(Users.findAll({ where: { isTrainer: req.query.isTrainer } }));
+  } else {
+    [err, user] = await to(Users.findAll());
+  }
+  if (err) return ReE(res, 'Failed to read', 422);
+  if (!user) {
+    return ReE(res, 'No user found', 404);
+  }
+  return res.json(user);
+}
+module.exports.readUser = readUser;
+
 const update = async function (req, res) {
   let err, user, data;
   if (!req.query) return ReE(res, 'No query parameters found', 404);

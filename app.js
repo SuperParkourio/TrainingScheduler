@@ -77,6 +77,15 @@ app.put(
   passport.authenticate('jwt', { session: false }),
   userController.update,
 );
+app.get('/users',
+  passport.authenticate('jwt', { session: false }),
+  userController.readUser,
+);
+app.get(
+  '/getUser',
+  passport.authenticate('jwt', { session: false }),
+  userController.getCurrentUser,
+);
 app.post('/login', userController.login);
 app.post(
   '/events',
@@ -87,14 +96,13 @@ app.put('/events', eventController.update);
 app.get('/events', eventController.readEvent);
 app.delete('/events', eventController.deleteEvent);
 app.get(
-  '/getUser',
-  passport.authenticate('jwt', { session: false }),
-  userController.getCurrentUser,
-);
-app.get(
   '/getEvents',
   passport.authenticate('jwt', { session: false }),
   eventController.readEventsForUser,
+);
+app.get(
+  '/getEventsUpcoming',
+  eventController.readEventsUpcoming,
 );
 app.post(
   '/sessions',
@@ -108,5 +116,10 @@ app.get(
   '/getSessions',
   passport.authenticate('jwt', { session: false }),
   sessionController.readSessionsForUser,
+);
+app.get(
+  '/getSessionsWithTrainerInfo',
+  passport.authenticate('jwt', { session: false }),
+  sessionController.readSessionsWithTrainerInfo,
 );
 module.exports = app;

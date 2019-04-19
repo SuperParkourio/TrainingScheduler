@@ -1,4 +1,5 @@
 const Events = require('../models').Events;
+const Sessions = require('../models').Sessions;
 
 const create = async function (req, res) {
   res.setHeader('ContentType', 'application/json');
@@ -63,6 +64,40 @@ const readEventsForUser = async function (req, res) {
   return res.json(events);
 }
 module.exports.readEventsForUser = readEventsForUser;
+
+const readEventsUpcoming = async function (req, res) {
+  let err, events, sessions;
+  const whereStatement = {};
+  if (req.query.name) {
+    whereStatement.name = {
+      $like: '%' + req.query.name + '%'
+    };
+  }
+  if (req.query.trainerId) {
+    [err, sessions] = await to(Sessions.findAll({ where: {trainerId: req.query.trainerId} }));
+    if (err) return ReE(res, 'Could not find sessions with that trainerId', 422);
+  }
+  whereStatement.startTime = { $gte: new Date() };
+  [err, events] = await to(Events.findAll({ where: whereStatement, order: [['startTime', 'ASC']] }));
+  if (err) return ReE(res, 'Failed to read', 422);
+  if (!events) {
+    return ReE(res, 'No events found', 404);
+  }
+  if (sessions) {
+    let filteredEvents = [];
+    for (let specificEvent of events) {
+      for (let specificSession of sessions) {
+        if (specificEvent.id == specificSession.eventId) {
+          filteredEvents.push(specificEvent);
+          break;
+        }
+      }
+    }
+    return res.json(filteredEvents);
+  }
+  return res.json(events);
+}
+module.exports.readEventsUpcoming = readEventsUpcoming;
 
 const update = async function (req, res) {
   let err, event, data;

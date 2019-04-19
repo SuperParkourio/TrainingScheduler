@@ -23,6 +23,8 @@ import { NoAdminGuard } from './common/auth/no-admin.guard';
 import { AddSessionComponent } from './common/add-session/add-session.component';
 import { SessionListComponent } from './common/session-list/session-list.component';
 import { TrainerGuard } from './common/auth/trainer.guard';
+import { EventSearchComponent } from './common/event-search/event-search.component';
+import { EventDetailsComponent } from './common/event-details/event-details.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { TrainerGuard } from './common/auth/trainer.guard';
     EventInfoComponent,
     AddSessionComponent,
     SessionListComponent,
+    EventSearchComponent,
+    EventDetailsComponent,
   ],
   imports: [
     BrowserModule,

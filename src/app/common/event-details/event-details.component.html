@@ -1,0 +1,18 @@
+<h2>Event Details</h2>
+<form [formGroup]="viewEventForm">
+  <div><label>Name:</label><input type="text" formControlName="name"/></div>
+  <div><label>Description:</label><input type="text" formControlName="description"/></div>
+  <div><label>Start Time:</label><input type="text" formControlName="startTime"/></div>
+  <div><label>End Time:</label><input type="text" formControlName="endTime"/></div>
+  <div><label>Location:</label><input type="text" formControlName="location"/></div>
+</form>
+<div class="list group">
+  <a *ngFor="let session of sessions" class="list-group-item">
+    {{ 'Name: ' + session.name }}<br/>
+    {{ 'Location: ' + session.location }}<br/>
+    {{ 'Start Time: ' + session.startTime }}<br/>
+    {{ ' End Time: ' + session.endTime }}<br/>
+    {{ 'Description: ' + session.description }}<br/>
+    {{ 'Trainer: ' + session.User.first + ' ' + session.User.last }}
+  </a>
+</div>

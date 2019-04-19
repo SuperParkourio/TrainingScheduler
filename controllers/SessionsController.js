@@ -1,4 +1,5 @@
 const Sessions = require('../models').Sessions;
+const Users = require('../models').Users;
 
 const create = async function (req, res) {
   res.setHeader('ContentType', 'application/json');
@@ -72,6 +73,21 @@ const readSessionsForUser = async function (req, res) {
   return res.json(sessions);
 }
 module.exports.readSessionsForUser = readSessionsForUser;
+
+const readSessionsWithTrainerInfo = async function (req, res) {
+  let err, session;
+  const whereStatement = {};
+  if (req.query.eventId)
+    whereStatement.eventId = req.query.eventId;
+  [err, session] = await to(Sessions.findAll({ where: whereStatement, order: [['startTime', 'ASC']],
+    include: [{model: Users}] }));
+  if (err) return ReE(res, 'Failed to read', 422);
+  if (!session) {
+    return ReE(res, 'No session found', 404);
+  }
+  return res.json(session);
+}
+module.exports.readSessionsWithTrainerInfo = readSessionsWithTrainerInfo;
 
 const update = async function (req, res) {
   let err, session, data;

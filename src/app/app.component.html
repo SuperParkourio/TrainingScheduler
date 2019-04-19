@@ -24,6 +24,9 @@
         <li *ngIf="loggedIn && isTrainer" class="nav-item">
           <a class="nav-link" routerLink="/sessions/add">Add Session</a>
         </li>
+        <li *ngIf="loggedIn" class="nav-item">
+          <a class="nav-link" routerLink="/event-search">Event Search</a>
+        </li>
       </ul>
     </div>
     <div class="float-right">

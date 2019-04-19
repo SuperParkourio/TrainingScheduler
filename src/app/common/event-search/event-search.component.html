@@ -1,0 +1,19 @@
+<h2>Event Search</h2>
+<div class="row" [formGroup]="searchForm">
+  <div class="col-md-8">
+    <label>Name:</label>
+    <input class="form-control" formControlName="queryName" placeholder="Enter text to search..."/>
+    <label>Trainer:</label>
+    <select class="form-control" formControlName="queryTrainerId">
+      <option></option>
+      <option *ngFor="let trainer of trainers" [value]="trainer.id">
+        {{ trainer.first + ' ' + trainer.last }}
+      </option>
+    </select>
+  </div>
+</div>
+<div class="list-group">
+  <a *ngFor="let event of events" class="list-group-item list-group-item-action" routerLink="/event-details/{{ event.id }}">
+    {{ event.name }}
+  </a>
+</div>
