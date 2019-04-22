@@ -31,8 +31,8 @@ export class EventInfoComponent implements OnInit {
       this.eventService.getEventWithId(parseInt(id)).subscribe(
         (events) => {
           console.log(events);
-          this.eventId = events[0].id; // it's a length 1 array for some reason
-          this.updateEventForm.patchValue(events[0]);
+          this.eventId = events.id;
+          this.updateEventForm.patchValue(events);
         },
         (error) => {
           console.log('Failed to get info for event with id=' + id);

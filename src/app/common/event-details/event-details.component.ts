@@ -28,9 +28,9 @@ export class EventDetailsComponent implements OnInit {
     this.viewEventForm.disable();
     const id = parseInt(this.activeRoute.snapshot.paramMap.get('eventId'));
     this.eventService.getEventWithId(id).subscribe(
-      (events) => {
-        console.log(events);
-        this.viewEventForm.patchValue(events[0]);
+      (event) => {
+        console.log(event);
+        this.viewEventForm.patchValue(event);
         this.eventService.getSessionsWithTrainerInfo(id).subscribe(
           (sessions) => {
             this.sessions = sessions;

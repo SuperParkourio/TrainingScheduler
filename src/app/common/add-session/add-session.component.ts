@@ -36,14 +36,14 @@ export class AddSessionComponent implements OnInit {
       }
     );
     const id = this.activeRoute.snapshot.paramMap.get('sessionId');
-    if (id !== 'add') {
+    if (id && id != 'add') {
       this.eventService.getSessionWithId(parseInt(id)).subscribe(
         (session) => {
           console.log(session);
-          this.addSessionForm.patchValue(session[0]); // why is it an array?
+          this.addSessionForm.patchValue(session);
           this.authService.getCurrentUser().subscribe(
             (user) => {
-              this.isCorrectUser = session[0].trainerId == user.id;
+              this.isCorrectUser = session.trainerId == user.id;
               if (!this.isCorrectUser) {
                 this.addSessionForm.disable();
               }
@@ -62,7 +62,7 @@ export class AddSessionComponent implements OnInit {
     if (!this.addSessionForm.controls.name.errors
       && !this.addSessionForm.controls.startTime.errors
       && !this.addSessionForm.controls.eventId.errors) {
-      if (id === 'add') {
+      if (!id || id == 'add') {
         this.eventService.createSessionForCurrentUser(this.addSessionForm.value).subscribe(
           (session) => this.router.navigateByUrl('/sessions'),
           (error) => console.log('could not create session')

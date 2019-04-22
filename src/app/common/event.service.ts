@@ -75,9 +75,8 @@ export class EventService {
   }
 
   getEventsWithNameAndTrainer(queryName: string, queryTrainerId: number): Observable<IEvent[]> {
-    console.log('http://localhost:3000/getEventsUpcoming'
-    + (queryName ? '?name=' + queryName : '') + (queryTrainerId ? '?trainerId=' + queryTrainerId : ''));
     return this.http.get<IEvent[]>('http://localhost:3000/getEventsUpcoming'
-      + (queryName ? '?name=' + queryName : '') + (queryTrainerId ? '?trainerId=' + queryTrainerId : ''));
+      + (queryName ? '?name=' + queryName : '')
+      + (queryTrainerId ? (queryName ? '&' : '?') + 'trainerId=' + queryTrainerId : ''));
   }
 }

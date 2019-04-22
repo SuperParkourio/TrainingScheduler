@@ -32,7 +32,7 @@ module.exports.createEvent = createEvent;
 
 const readEvent = async function (req, res) {
   let err, event;
-  if (req.query && req.query.length > 0) {
+  if (req.query && req.query.id) {
     [err, event] = await to(Events.findOne({ where: { id: req.query.id } }));
   } else {
     [err, event] = await to(Events.findAll());

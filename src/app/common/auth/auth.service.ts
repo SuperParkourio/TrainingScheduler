@@ -22,7 +22,6 @@ export interface IUser {
     phone: string,
     userRoleId: number,
     aboutMe: string,
-    password: string,
     isTrainer: boolean,
 }
 
@@ -79,8 +78,6 @@ export class AuthService {
             aboutMe: null,
             isTrainer: isTrainer,
         };
-        data.userRoleId = UserRoles.User;
-        data.aboutMe = null;
         if (!data.phone) data.phone = null;
         return this.http.post('http://localhost:3000/users', data);
     }

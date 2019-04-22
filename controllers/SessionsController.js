@@ -32,7 +32,7 @@ module.exports.createSession = createSession;
 
 const readSession = async function (req, res) {
   let err, session;
-  if (req.query && req.query.length > 0) {
+  if (req.query && req.query.id) {
     [err, session] = await to(Sessions.findOne({ where: { id: req.query.id } }));
   } else {
     if (req.query.name)

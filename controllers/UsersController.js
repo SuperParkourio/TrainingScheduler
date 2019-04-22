@@ -24,7 +24,7 @@ const createUser = async function (userInfo) {
   let err;
   if (validator.isEmail(userInfo.email)) {
     [err, user] = await to(Users.create(userInfo));
-    if (err) TE('User already exists with that email');
+    if (err) TE('User already exists with that email or phone is invalid');
     return user;
   } else {
     TE('Email is invalid');
