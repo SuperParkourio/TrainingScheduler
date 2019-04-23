@@ -53,8 +53,8 @@ export class EventSearchComponent implements OnInit {
   getEvents() {
     this.eventService.getEventsWithNameAndTrainer(this.queryName, this.queryTrainerId).subscribe(
       (events) => {
-        console.log(this.queryName + ' ' + this.queryTrainerId);
-        console.log(events);
+        // console.log(this.queryName + ' ' + this.queryTrainerId);
+        // console.log(events);
         this.events = events;
       },
       (error) => {

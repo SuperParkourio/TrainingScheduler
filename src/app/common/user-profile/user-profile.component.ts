@@ -29,7 +29,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.getCurrentUser().subscribe(
       (data) => {
-        console.log(data);
+        // console.log(data);
         this.userId = data.id;
         this.updateUserForm.controls.first.setValue(data.first);
         this.updateUserForm.controls.last.setValue(data.last);

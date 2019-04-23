@@ -24,7 +24,7 @@ export class EventListComponent implements OnInit {
     this.getEvents();
     this.searchForm.controls.query.valueChanges.pipe(debounceTime(350)).subscribe(
       (value) => {
-        console.log(value);
+        // console.log(value);
         this.query = value;
         this.getEvents();
       }
@@ -34,7 +34,7 @@ export class EventListComponent implements OnInit {
   getEvents() {
     this.eventService.getEventsForCurrentUser(this.query).subscribe(
       (events) => {
-        console.log(events);
+        // console.log(events);
         this.events = events;
       }
     );

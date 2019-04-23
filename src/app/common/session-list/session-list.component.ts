@@ -25,7 +25,7 @@ export class SessionListComponent implements OnInit {
     this.getSessions();
     this.searchForm.controls.query.valueChanges.pipe(debounceTime(350)).subscribe(
       (value) => {
-        console.log(value);
+        // console.log(value);
         this.query = value;
         this.getSessions();
       }
@@ -35,7 +35,7 @@ export class SessionListComponent implements OnInit {
   getSessions() {
     this.eventService.getSessions(this.query).subscribe(
       (sessions) => {
-        console.log(sessions);
+        // console.log(sessions);
         this.sessions = sessions;
       }
     );

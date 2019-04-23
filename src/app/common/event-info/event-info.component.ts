@@ -30,7 +30,7 @@ export class EventInfoComponent implements OnInit {
     if (id !== 'add') {
       this.eventService.getEventWithId(parseInt(id)).subscribe(
         (events) => {
-          console.log(events);
+          // console.log(events);
           this.eventId = events.id;
           this.updateEventForm.patchValue(events);
         },
@@ -42,7 +42,7 @@ export class EventInfoComponent implements OnInit {
   }
 
   save(): void {
-    console.log(this.updateEventForm.value);
+    // console.log(this.updateEventForm.value);
     if (this.updateEventForm.value.name && this.updateEventForm.value.startTime) {
       this.eventService.updateEventInfo(this.eventId, this.updateEventForm.value).subscribe(
         (response) => this.router.navigateByUrl('/event-list')

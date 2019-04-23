@@ -27,7 +27,7 @@ export class SignUpComponent {
             email: this.email,
             password: this.password,
             isTrainer: this.isTrainer,
-        }; console.log(this.isTrainer);
+        }; // console.log(this.isTrainer);
         
         if (newUser.firstName && newUser.lastName && newUser.email && newUser.password) {
             this.authService.signUp(newUser.firstName, newUser.lastName, newUser.phoneNumber,

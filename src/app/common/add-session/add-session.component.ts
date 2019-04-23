@@ -39,7 +39,7 @@ export class AddSessionComponent implements OnInit {
     if (id && id != 'add') {
       this.eventService.getSessionWithId(parseInt(id)).subscribe(
         (session) => {
-          console.log(session);
+          // console.log(session);
           this.addSessionForm.patchValue(session);
           this.authService.getCurrentUser().subscribe(
             (user) => {
@@ -73,7 +73,7 @@ export class AddSessionComponent implements OnInit {
           (error) => console.log('could not update session')
         );
       }
-      console.log(this.addSessionForm.value);
+      // console.log(this.addSessionForm.value);
     } else {
       console.log('Broken form, missing information');
     }
